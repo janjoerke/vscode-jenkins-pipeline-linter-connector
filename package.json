@@ -1,0 +1,71 @@
+{
+    "name": "jenkins-pipeline-linter-connector",
+    "displayName": "Jenkins Pipeline Linter Connector",
+    "description": "Validates Jenkinsfiles by sending them to the Pipeline Linter of a Jenkins server.",
+    "version": "1.0.0",
+    "icon": "images/icon.png",
+    "publisher": "janjoerke",
+    "license": "LICENSE.txt",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/janjoerke/vscode-jenkins-pipeline-linter-connector.git"
+    },
+    "engines": {
+        "vscode": "^1.25.0"
+    },
+    "categories": [
+        "Other"
+    ],
+    "activationEvents": [
+        "onCommand:jenkins.pipeline.linter.connector.validate"
+    ],
+    "main": "./out/extension",
+    "contributes": {
+        "commands": [
+            {
+                "command": "jenkins.pipeline.linter.connector.validate",
+                "title": "Validate Jenkinsfile"
+            }
+        ],
+        "keybindings": [
+            {
+                "command": "jenkins.pipeline.linter.connector.validate",
+                "key": "alt+shift+v",
+                "when": "editorFocus"
+            }
+        ],
+        "configuration": {
+            "type": "object",
+            "title": "Jenkins Pipeline Linter Connector",
+            "properties": {
+                "jenkins.pipeline.linter.connector.url": {
+                    "type": "string",
+                    "description": "Linter url (i.e. http://<your_jenkins_server:port>/pipeline-model-converter/validate)"
+                },
+                "jenkins.pipeline.linter.connector.user": {
+                    "type": "string",
+                    "description": "Username"
+                },
+                "jenkins.pipeline.linter.connector.pass": {
+                    "type": "string",
+                    "description": "Password"
+                }
+            }
+        }
+    },
+    "scripts": {
+        "vscode:prepublish": "npm run compile",
+        "compile": "tsc -p ./",
+        "watch": "tsc -watch -p ./",
+        "postinstall": "node ./node_modules/vscode/bin/install",
+        "test": "npm run compile && node ./node_modules/vscode/bin/test"
+    },
+    "devDependencies": {
+        "typescript": "^2.6.1",
+        "vscode": "^1.1.6",
+        "tslint": "^5.8.0",
+        "request": "^2.87.0",
+        "@types/node": "^7.0.43",
+        "@types/mocha": "^2.2.42"
+    }
+}
