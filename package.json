@@ -2,7 +2,7 @@
     "name": "jenkins-pipeline-linter-connector",
     "displayName": "Jenkins Pipeline Linter Connector",
     "description": "Validates Jenkinsfiles by sending them to the Pipeline Linter of a Jenkins server.",
-    "version": "1.0.2",
+    "version": "1.0.3",
     "icon": "images/icon.png",
     "publisher": "janjoerke",
     "license": "LICENSE.txt",
@@ -64,8 +64,10 @@
         "typescript": "^2.6.1",
         "vscode": "^1.1.6",
         "tslint": "^5.8.0",
-        "request": "^2.87.0",
         "@types/node": "^7.0.43",
         "@types/mocha": "^2.2.42"
+    },
+    "dependencies": {
+        "request": "^2.87.0"
     }
 }
