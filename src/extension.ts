@@ -6,6 +6,7 @@ export function activate(context: vscode.ExtensionContext) {
 
     let request = require('request');
     let fs = require('fs');
+    let output : vscode.OutputChannel = vscode.window.createOutputChannel("Jenkins Pipeline Linter");
 
     let lastInput: string;
 
@@ -44,23 +45,23 @@ export function activate(context: vscode.ExtensionContext) {
                     }
                     request(options, (err: any, httpResponse: any, body: any) => {
                         if (err) {
-                            vscode.window.showErrorMessage(err);
+                            output.appendLine(err);
                         } else {
                             if (body.startsWith('Jenkinsfile successfully validated.')) {
-                                vscode.window.showInformationMessage(body);
+                                output.appendLine(body);
                             } else {
-                                vscode.window.showWarningMessage(body);
+                                output.appendLine(body);
                             }
                         }
                     });
                 });
             } else {
-                vscode.window.showErrorMessage('No active text editor. Open the jenkinsfile you want to validate.');
+                output.appendLine('No active text editor. Open the jenkinsfile you want to validate.');
             }
         } else {
-            vscode.window.showErrorMessage('Jenkins Pipeline Linter Url is not defined.');
+            output.appendLine('Jenkins Pipeline Linter Url is not defined.');
         }
-
+        output.show(true);
     });
     context.subscriptions.push(validate);
 }

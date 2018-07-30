@@ -22,6 +22,22 @@ This extension contributes the following settings:
 
 ## Release Notes
 
+### 1.0.4
+
+Changed output channel.
+
+### 1.0.3
+
+Bugfixes.
+
+### 1.0.2
+
+Bugfixes.
+
+### 1.0.1
+
+Bugfixes.
+
 ### 1.0.0
 
 Initial release of jenkins-pipeline-linter-connector.
