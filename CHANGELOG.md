@@ -1,5 +1,9 @@
 # Change Log
 
+### 1.1.0
+
+Added the possibility to add the crumbUrl for Jenkins installations with active CRSF protection.
+
 ## 1.0.4
 
 Changed output channel.
