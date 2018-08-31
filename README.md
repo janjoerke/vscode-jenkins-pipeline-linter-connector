@@ -22,6 +22,10 @@ This extension contributes the following settings:
 
 ## Release Notes
 
+### 1.1.1
+
+Changed dependency of url-parse for potential security problem.
+
 ### 1.1.0
 
 Added the possibility to add the crumbUrl for Jenkins installations with active CRSF protection.
