@@ -1,5 +1,9 @@
 # Change Log
 
+### 1.1.2
+
+Changed readme.
+
 ### 1.1.1
 
 Changed dependency of url-parse for potential security problem.

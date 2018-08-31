@@ -17,10 +17,15 @@ This extension validates Jenkinsfiles by sending them to the Pipeline Linter of 
 This extension contributes the following settings:
 
 * `jenkins.pipeline.linter.connector.url`: Url of the Jenkins Pipeline Linter.
+* `jenkins.pipeline.linter.connector.crumbUrl`: Url of the Jenkins Crumb Issuer.
 * `jenkins.pipeline.linter.connector.pass`: Jenkins username.
 * `jenkins.pipeline.linter.connector.user`: Jenkins password.
 
 ## Release Notes
+
+### 1.1.2
+
+Changed readme.
 
 ### 1.1.1
 
