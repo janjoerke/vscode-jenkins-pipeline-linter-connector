@@ -2,7 +2,7 @@
     "name": "jenkins-pipeline-linter-connector",
     "displayName": "Jenkins Pipeline Linter Connector",
     "description": "Validates Jenkinsfiles by sending them to the Pipeline Linter of a Jenkins server.",
-    "version": "1.1.2",
+    "version": "1.1.3",
     "icon": "images/icon.png",
     "publisher": "janjoerke",
     "license": "LICENSE.txt",
@@ -53,6 +53,11 @@
                 "jenkins.pipeline.linter.connector.crumbUrl": {
                     "type": "string",
                     "description": "The url of the crumb service (i.e. http://<your_jenkins_server:port>/crumbIssuer/api/xml?xpath=concat(//crumbRequestField,%22:%22,//crumb))"
+                },
+                "jenkins.pipeline.linter.connector.strictssl": {
+                    "type": "boolean",
+                    "default": true,
+                    "description": "Set to false to allow invalid ssl connections"
                 }
             }
         }

@@ -16,6 +16,7 @@ export function activate(context: vscode.ExtensionContext) {
         let user = vscode.workspace.getConfiguration().get('jenkins.pipeline.linter.connector.user') as string | undefined;
         let pass = vscode.workspace.getConfiguration().get('jenkins.pipeline.linter.connector.pass') as string | undefined;
         let crumbUrl = vscode.workspace.getConfiguration().get('jenkins.pipeline.linter.connector.crumbUrl') as string | undefined;
+        let strictssl = vscode.workspace.getConfiguration().get('jenkins.pipeline.linter.connector.strictssl') as boolean;
 
         if (url === undefined || url.length === 0) {
             url = await vscode.window.showInputBox({ prompt: 'Enter Jenkins Pipeline Linter Url.', value: lastInput });
@@ -24,9 +25,9 @@ export function activate(context: vscode.ExtensionContext) {
             lastInput = url;
 
             if(crumbUrl !== undefined && crumbUrl.length > 0) {
-                requestCrumb(fs, request, url, crumbUrl, user, pass, output);
+                requestCrumb(fs, request, url, crumbUrl, user, pass, strictssl, output);
             } else {
-                validateRequest(fs, request, url, user, pass, undefined ,output);
+                validateRequest(fs, request, url, user, pass, undefined, strictssl, output);
             }
         } else {
             output.appendLine('Jenkins Pipeline Linter Url is not defined.');
@@ -36,10 +37,11 @@ export function activate(context: vscode.ExtensionContext) {
     context.subscriptions.push(validate);
 }
 
-function requestCrumb(fs: any, request: any, url: string, crumbUrl: string, user: string|undefined, pass: string|undefined, output: vscode.OutputChannel) {
+function requestCrumb(fs: any, request: any, url: string, crumbUrl: string, user: string|undefined, pass: string|undefined, strictssl: boolean, output: vscode.OutputChannel) {
     let options: any = {
         method: 'GET',
-        url: crumbUrl
+        url: crumbUrl,
+        strictSSL: strictssl
     };
     if(user !== undefined && user.length > 0 && pass !== undefined && pass.length > 0) {
         options.auth = {
@@ -51,12 +53,12 @@ function requestCrumb(fs: any, request: any, url: string, crumbUrl: string, user
         if (err) {
             output.appendLine(err);
         } else {
-            validateRequest(fs, request, url, user, pass, body, output);
+            validateRequest(fs, request, url, user, pass, body, strictssl, output);
         }
     });
 }
 
-function validateRequest(fs: any, request: any, url: string, user: string|undefined, pass: string|undefined, crumb: string|undefined, output: vscode.OutputChannel) {
+function validateRequest(fs: any, request: any, url: string, user: string|undefined, pass: string|undefined, crumb: string|undefined, strictssl: boolean, output: vscode.OutputChannel) {
     let activeTextEditor = vscode.window.activeTextEditor;
     if (activeTextEditor !== undefined) {
         let path = activeTextEditor.document.uri.fsPath;
@@ -69,6 +71,7 @@ function validateRequest(fs: any, request: any, url: string, user: string|undefi
             let options: any = {
                 method: 'POST',
                 url: url,
+                strictSSL: strictssl,
                 formData: {
                     'jenkinsfile': chunks.join()
                 }
