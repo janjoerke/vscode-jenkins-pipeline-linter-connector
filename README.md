@@ -20,6 +20,7 @@ This extension contributes the following settings:
 * `jenkins.pipeline.linter.connector.crumbUrl`: Url of the Jenkins Crumb Issuer.
 * `jenkins.pipeline.linter.connector.pass`: Jenkins username.
 * `jenkins.pipeline.linter.connector.user`: Jenkins password.
+* `jenkins.pipeline.linter.connector.strictssl`: Set to false to allow invalid ssl connections.
 
 ## Release Notes
 
