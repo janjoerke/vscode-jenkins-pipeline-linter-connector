@@ -5,6 +5,7 @@ This extension validates Jenkinsfiles by sending them to the Pipeline Linter of 
 ## Features
 
 - Validate Jenkinsfiles from wihin vscode.
+- Supports declarative pipeline only.
 
 ## Examples
 
