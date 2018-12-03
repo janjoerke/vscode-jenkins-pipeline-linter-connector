@@ -1,5 +1,9 @@
 # Change Log
 
+### 1.1.4
+
+Added possibility to leave password option blank, when setting user name.
+
 ### 1.1.3
 
 Added option to disable strict ssl validation.
