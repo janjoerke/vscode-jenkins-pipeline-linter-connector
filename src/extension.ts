@@ -22,7 +22,7 @@ export function activate(context: vscode.ExtensionContext) {
             url = await vscode.window.showInputBox({ prompt: 'Enter Jenkins Pipeline Linter Url.', value: lastInput });
         }
         if ((user !== undefined && user.length > 0) && (pass === undefined || pass.length === 0)) {
-            pass = await vscode.window.showInputBox({ prompt: 'Enter password.' });
+            pass = await vscode.window.showInputBox({ prompt: 'Enter password.', password: true });
         }
         if (url !== undefined && url.length > 0) {
             lastInput = url;
