@@ -23,7 +23,16 @@ This extension contributes the following settings:
 * `jenkins.pipeline.linter.connector.user`: Jenkins password (can be left blank if you don't want to put your password in your settings).
 * `jenkins.pipeline.linter.connector.strictssl`: Set to false to allow invalid ssl connections.
 
+## Contributors
+
+* [Blake Easley](https://github.com/Jimmyscene)
+* [Tomáš Hartmann](https://github.com/cvakiitho)
+
 ## Release Notes
+
+### 1.1.5
+
+Mask manual password input.
 
 ### 1.1.4
 
