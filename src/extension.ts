@@ -62,6 +62,7 @@ function requestCrumb(fs: any, request: any, url: string, crumbUrl: string, user
 }
 
 function validateRequest(fs: any, request: any, url: string, user: string|undefined, pass: string|undefined, crumb: string|undefined, strictssl: boolean, output: vscode.OutputChannel) {
+    output.clear()
     let activeTextEditor = vscode.window.activeTextEditor;
     if (activeTextEditor !== undefined) {
         let path = activeTextEditor.document.uri.fsPath;
