@@ -1,4 +1,4 @@
-Copyright (c) 2018, Jan Jörke
+Copyright (c) 2019, Jan Jörke
 
 All rights reserved.
 

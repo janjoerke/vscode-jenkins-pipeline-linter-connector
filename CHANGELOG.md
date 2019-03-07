@@ -1,5 +1,9 @@
 # Change Log
 
+### 1.1.6
+
+Clear output before run.
+
 ### 1.1.5
 
 Mask manual password input.

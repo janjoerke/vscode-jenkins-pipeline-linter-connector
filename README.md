@@ -25,10 +25,15 @@ This extension contributes the following settings:
 
 ## Contributors
 
+* [backbasejeff](https://github.com/backbasejeff)
 * [Blake Easley](https://github.com/Jimmyscene)
 * [Tomáš Hartmann](https://github.com/cvakiitho)
 
 ## Release Notes
+
+### 1.1.6
+
+Clear output before run.
 
 ### 1.1.5
 
