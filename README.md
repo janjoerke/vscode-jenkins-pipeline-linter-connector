@@ -25,11 +25,15 @@ This extension contributes the following settings:
 
 ## Contributors
 
+* [Asif Kamran Malick](https://github.com/akmalick)
 * [backbasejeff](https://github.com/backbasejeff)
 * [Blake Easley](https://github.com/Jimmyscene)
 * [Tomáš Hartmann](https://github.com/cvakiitho)
 
 ## Release Notes
+
+### 1.1.7
+Fixed error in readme.
 
 ### 1.1.6
 

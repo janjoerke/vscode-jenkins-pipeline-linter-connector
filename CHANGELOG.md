@@ -1,5 +1,8 @@
 # Change Log
 
+### 1.1.7
+Fixed error in readme.
+
 ### 1.1.6
 
 Clear output before run.
