@@ -14,23 +14,28 @@ export function activate(context: vscode.ExtensionContext) {
 
         let url = vscode.workspace.getConfiguration().get('jenkins.pipeline.linter.connector.url') as string | undefined;
         let user = vscode.workspace.getConfiguration().get('jenkins.pipeline.linter.connector.user') as string | undefined;
-        let pass = vscode.workspace.getConfiguration().get('jenkins.pipeline.linter.connector.pass') as string | undefined;
+        let auth = vscode.workspace.getConfiguration().get('jenkins.pipeline.linter.connector.auth') as string | undefined;
+        let isToken = vscode.workspace.getConfiguration().get('jenkins.pipeline.linter.connector.isToken') as boolean;
         let crumbUrl = vscode.workspace.getConfiguration().get('jenkins.pipeline.linter.connector.crumbUrl') as string | undefined;
         let strictssl = vscode.workspace.getConfiguration().get('jenkins.pipeline.linter.connector.strictssl') as boolean;
 
         if (url === undefined || url.length === 0) {
             url = await vscode.window.showInputBox({ prompt: 'Enter Jenkins Pipeline Linter Url.', value: lastInput });
         }
-        if ((user !== undefined && user.length > 0) && (pass === undefined || pass.length === 0)) {
-            pass = await vscode.window.showInputBox({ prompt: 'Enter password.', password: true });
+        if ((user !== undefined && user.length > 0) && (auth === undefined || auth.length === 0)) {
+            if (!isToken) {
+                auth = await vscode.window.showInputBox({ prompt: 'Enter password.', password: true });
+            } else {
+                auth = await vscode.window.showWarningMessage("Token missing! Add it to settings!");
+            }
         }
         if (url !== undefined && url.length > 0) {
             lastInput = url;
 
             if(crumbUrl !== undefined && crumbUrl.length > 0) {
-                requestCrumb(fs, request, url, crumbUrl, user, pass, strictssl, output);
+                requestCrumb(fs, request, url, crumbUrl, user, auth, isToken, strictssl, output);
             } else {
-                validateRequest(fs, request, url, user, pass, undefined, strictssl, output);
+                validateRequest(fs, request, url, user, auth, isToken, undefined, strictssl, output);
             }
         } else {
             output.appendLine('Jenkins Pipeline Linter Url is not defined.');
@@ -40,29 +45,34 @@ export function activate(context: vscode.ExtensionContext) {
     context.subscriptions.push(validate);
 }
 
-function requestCrumb(fs: any, request: any, url: string, crumbUrl: string, user: string|undefined, pass: string|undefined, strictssl: boolean, output: vscode.OutputChannel) {
+function requestCrumb(fs: any, request: any, url: string, crumbUrl: string, user: string|undefined, auth: string|undefined, isToken: boolean, strictssl: boolean, output: vscode.OutputChannel) {
     let options: any = {
         method: 'GET',
         url: crumbUrl,
         strictSSL: strictssl
     };
-    if(user !== undefined && user.length > 0 && pass !== undefined && pass.length > 0) {
-        options.auth = {
-            'user': user,
-            'pass': pass
-        };
+    if (user !== undefined && user.length > 0 && auth !== undefined && auth.length > 0) {
+        if (!isToken) {
+            options.auth = {
+                'user': user,
+                'pass': auth
+            };
+        } else {
+            let authToken = new Buffer(user + ':' + auth).toString('base64');
+            options.headers = { Authorization: 'Basic ' + authToken};
+        }
     }
     request(options, (err: any, httpResponse: any, body: any) => {
         if (err) {
             output.appendLine(err);
         } else {
-            validateRequest(fs, request, url, user, pass, body, strictssl, output);
+            validateRequest(fs, request, url, user, auth, isToken, body, strictssl, output);
         }
     });
 }
 
-function validateRequest(fs: any, request: any, url: string, user: string|undefined, pass: string|undefined, crumb: string|undefined, strictssl: boolean, output: vscode.OutputChannel) {
-    output.clear()
+function validateRequest(fs: any, request: any, url: string, user: string|undefined, auth: string|undefined, isToken: boolean, crumb: string|undefined, strictssl: boolean, output: vscode.OutputChannel) {
+    output.clear();
     let activeTextEditor = vscode.window.activeTextEditor;
     if (activeTextEditor !== undefined) {
         let path = activeTextEditor.document.uri.fsPath;
@@ -78,24 +88,29 @@ function validateRequest(fs: any, request: any, url: string, user: string|undefi
                 strictSSL: strictssl,
                 formData: {
                     'jenkinsfile': chunks.join()
-                }
+                },
+                headers: {}
             };
-            if(user !== undefined && user.length > 0 && pass !== undefined && pass.length > 0) {
-                options.auth = {
-                    'user': user,
-                    'pass': pass
-                };
-            }
             if(crumb !== undefined && crumb.length > 0) {
                 let crumbSplit = crumb.split(':');
-                options.headers = {
-                    'Jenkins-Crumb': crumbSplit[1]
-                };
+                options.headers = Object.assign(options.headers, {'Jenkins-Crumb': crumbSplit[1]});
+            }
+            if(user !== undefined && user.length > 0 && auth !== undefined && auth.length > 0) {
+                if (!isToken) {
+                    options.auth = {
+                        'user': user,
+                        'pass': auth
+                    };
+                } else {
+                    let authToken = new Buffer(user + ':' + auth).toString('base64');
+                    options.headers = Object.assign(options.headers, { Authorization: 'Basic ' + authToken });
+                }
             }
             request(options, (err: any, httpResponse: any, body: any) => {
                 if (err) {
                     output.appendLine(err);
                 } else {
+                    vscode.debug
                     output.appendLine(body);
                 }
             });
