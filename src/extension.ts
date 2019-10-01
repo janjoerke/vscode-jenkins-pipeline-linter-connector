@@ -49,7 +49,8 @@ function requestCrumb(fs: any, request: any, url: string, crumbUrl: string, user
     let options: any = {
         method: 'GET',
         url: crumbUrl,
-        strictSSL: strictssl
+        strictSSL: strictssl,
+        headers: {}
     };
 
     if (user !== undefined && user.length > 0) {
