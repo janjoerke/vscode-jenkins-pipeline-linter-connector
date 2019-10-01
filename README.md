@@ -20,6 +20,7 @@ This extension contributes the following settings:
 * `jenkins.pipeline.linter.connector.url`: Url of the Jenkins Pipeline Linter.
 * `jenkins.pipeline.linter.connector.crumbUrl`: Url of the Jenkins Crumb Issuer.
 * `jenkins.pipeline.linter.connector.pass`: Jenkins password (can be left blank if you don't want to put your password in your settings).
+* `jenkins.pipeline.linter.connector.token`: Jenkins token (can be left blank if you don't want to put your token in your settings).
 * `jenkins.pipeline.linter.connector.user`: Jenkins username.
 * `jenkins.pipeline.linter.connector.strictssl`: Set to false to allow invalid ssl connections.
 
@@ -28,9 +29,13 @@ This extension contributes the following settings:
 * [Asif Kamran Malick](https://github.com/akmalick)
 * [backbasejeff](https://github.com/backbasejeff)
 * [Blake Easley](https://github.com/Jimmyscene)
+* [Draco Boreus](https://github.com/dracoBoreus)
 * [Tomáš Hartmann](https://github.com/cvakiitho)
 
 ## Release Notes
+
+### 1.2.0
+Added token based authentication.
 
 ### 1.1.7
 Fixed error in readme.

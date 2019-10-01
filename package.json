@@ -2,7 +2,7 @@
     "name": "jenkins-pipeline-linter-connector",
     "displayName": "Jenkins Pipeline Linter Connector",
     "description": "Validates Jenkinsfiles by sending them to the Pipeline Linter of a Jenkins server.",
-    "version": "1.1.7",
+    "version": "1.2.0",
     "icon": "images/icon.png",
     "publisher": "janjoerke",
     "license": "LICENSE.txt",
@@ -46,14 +46,13 @@
                     "type": "string",
                     "description": "Username"
                 },
-                "jenkins.pipeline.linter.connector.auth": {
+                "jenkins.pipeline.linter.connector.pass": {
                     "type": "string",
-                    "description": "Password/Token (can be left blank if you don't want to put your password/token in your settings)"
+                    "description": "Password (can be left blank if you don't want to put your password in your settings)"
                 },
-                "jenkins.pipeline.linter.connector.isToken": {
-                    "type": "boolean",
-                    "default": false,
-                    "description": "Set to true to allow token based authentication"
+                "jenkins.pipeline.linter.connector.token": {
+                    "type": "string",
+                    "description": "Token (can be left blank if you don't want to put your token in your settings)"
                 },
                 "jenkins.pipeline.linter.connector.crumbUrl": {
                     "type": "string",
