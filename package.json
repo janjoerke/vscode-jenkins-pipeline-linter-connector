@@ -46,9 +46,14 @@
                     "type": "string",
                     "description": "Username"
                 },
-                "jenkins.pipeline.linter.connector.pass": {
+                "jenkins.pipeline.linter.connector.auth": {
                     "type": "string",
-                    "description": "Password (can be left blank if you don't want to put your password in your settings)"
+                    "description": "Password/Token (can be left blank if you don't want to put your password/token in your settings)"
+                },
+                "jenkins.pipeline.linter.connector.isToken": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "Set to true to allow token based authentication"
                 },
                 "jenkins.pipeline.linter.connector.crumbUrl": {
                     "type": "string",
