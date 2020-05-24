@@ -24,6 +24,20 @@ This extension contributes the following settings:
 * `jenkins.pipeline.linter.connector.user`: Jenkins username.
 * `jenkins.pipeline.linter.connector.strictssl`: Set to false to allow invalid ssl connections.
 
+## How to configure
+
+You are required to give your Jenkins username, Jenkins validate path URL and the crumbIssuer URL following the bellow pattern:
+
+`
+"jenkins.pipeline.linter.connector.url": "http://<your jenkins url>:<your jenkins port>/pipeline-model-converter/validate",    
+`
+
+`
+"jenkins.pipeline.linter.connector.crumbUrl": "http://<your jenkins url>:<your jenkins port>/crumbIssuer/api/xml?xpath=concat(//crumbRequestField,%22:%22,//crumb)"  
+`
+
+`jenkins.pipeline.linter.connector.user: <your username>`
+
 ## Contributors
 
 * [Asif Kamran Malick](https://github.com/akmalick)
