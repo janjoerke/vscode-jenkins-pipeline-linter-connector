@@ -56,7 +56,7 @@
                 },
                 "jenkins.pipeline.linter.connector.crumbUrl": {
                     "type": "string",
-                    "description": "The url of the crumb service (i.e. http://<your_jenkins_server:port>/crumbIssuer/api/xml?xpath=concat(//crumbRequestField,%22:%22,//crumb))"
+                    "description": "The url of the crumb service (i.e. http://<your_jenkins_server:port>/crumbIssuer/api/xml?xpath=concat(//crumbRequestField,%22:%22,//crumb) )"
                 },
                 "jenkins.pipeline.linter.connector.strictssl": {
                     "type": "boolean",
