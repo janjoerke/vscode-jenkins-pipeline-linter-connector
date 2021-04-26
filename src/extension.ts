@@ -59,8 +59,10 @@ function requestCrumb(fs: any, request: any, url: string, crumbUrl: string, user
                 'pass': pass
             };
         } else if ( token !== undefined && token.length > 0) {
-            let authToken = new Buffer(user + ':' + token).toString('base64');
-            options.headers = Object.assign(options.headers, { Authorization: 'Basic ' + authToken });
+            options.auth = {
+                'user': user,
+                'pass': token
+            };
         }
     }
 
@@ -106,8 +108,10 @@ function validateRequest(fs: any, request: any, url: string, user: string|undefi
                         'pass': pass
                     };
                 } else if ( token !== undefined && token.length > 0) {
-                    let authToken = new Buffer(user + ':' + token).toString('base64');
-                    options.headers = Object.assign(options.headers, { Authorization: 'Basic ' + authToken });
+                    options.auth = {
+                        'user': user,
+                        'pass': token
+                    };
                 }
             }
 
