@@ -41,8 +41,21 @@ export function activate(context: vscode.ExtensionContext) {
         }
         output.show(true);
     });
+
+    let onSave = vscode.workspace.onDidSaveTextDocument((document: vscode.TextDocument) => {
+        
+        let onSave = vscode.workspace.getConfiguration().get('jenkins.pipeline.linter.onsave') as boolean;
+        console.log(`onSave ${onSave}`)
+        if (!onSave)
+            return;
+
+        vscode.commands.executeCommand('jenkins.pipeline.linter.connector.validate');
+    });
+
     context.subscriptions.push(validate);
+    context.subscriptions.push(onSave);
 }
+
 
 function requestCrumb(fs: any, request: any, url: string, crumbUrl: string, user: string|undefined, pass: string|undefined, token: string|undefined, strictssl: boolean, output: vscode.OutputChannel) {
 
@@ -77,7 +90,13 @@ function validateRequest(fs: any, request: any, url: string, user: string|undefi
     output.clear();
     let activeTextEditor = vscode.window.activeTextEditor;
     if (activeTextEditor !== undefined) {
+        let checkExts = vscode.workspace.getConfiguration().get('jenkins.pipeline.linter.checkextensions') as string[] | undefined;
         let path = activeTextEditor.document.uri.fsPath;
+        let lastDot = path.lastIndexOf(".")
+        let fileExt = path.substring(lastDot, path.length).toLocaleLowerCase()
+        if (checkExts !== undefined && checkExts.indexOf(fileExt) == -1)
+            return;
+
         let filestream = fs.createReadStream(path);
         const chunks: any = [];
         filestream.on('data', (chunk: any) => {

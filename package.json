@@ -62,6 +62,16 @@
                     "type": "boolean",
                     "default": true,
                     "description": "Set to false to allow invalid ssl connections"
+                },
+                "jenkins.pipeline.linter.onsave": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "Check lint when save"
+                },
+                "jenkins.pipeline.linter.checkextensions": {
+                    "type": "array",
+                    "default": [".jenkinsfile", ".groovy"],
+                    "description": "Set lint file extension list"
                 }
             }
         }
