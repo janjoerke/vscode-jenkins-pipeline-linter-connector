@@ -18,7 +18,9 @@ This extension validates Jenkinsfiles by sending them to the Pipeline Linter of 
 This extension contributes the following settings:
 
 * `jenkins.pipeline.linter.connector.url`: Url of the Jenkins Pipeline Linter.
+   * This is the endpoint at which your Jenkins Server expects the POST request, containing your Jenkinsfile which you want to validate. Typically this points to `http://<your_jenkins_server:port>/pipeline-model-converter/validate`.
 * `jenkins.pipeline.linter.connector.crumbUrl`: Url of the Jenkins Crumb Issuer.
+  * This has to be specified if your Jenkins Server has CRSF protection enabled. Typically this points to `http://<your_jenkins_server:port>/crumbIssuer/api/xml?xpath=concat(//crumbRequestField,%22:%22,//crumb)`.​
 * `jenkins.pipeline.linter.connector.pass`: Jenkins password (can be left blank if you don't want to put your password in your settings).
 * `jenkins.pipeline.linter.connector.token`: Jenkins token (can be left blank if you don't want to put your token in your settings).
 * `jenkins.pipeline.linter.connector.user`: Jenkins username.
